@@ -29,6 +29,7 @@ uniform vec2 uOccluderPosition[100];
 uniform vec2 uOccluderSize[100];
 uniform float uOccluderAngle[50];
 uniform int uOccluderCount;
+uniform int uMyOcclusionTextureAssignments[50];
 
 // Structure to represent an occluder
 struct Occluder {

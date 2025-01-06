@@ -4,7 +4,6 @@ import { AmbientLightComponent, OccluderComponent, PointLightComponent } from ".
 
 export class PointLight extends Actor {
   private _Plight: PointLightComponent;
-  private _PLcolor: Color;
   private _PLintensity: number;
   private _PLfalloff: number;
 
@@ -15,7 +14,7 @@ export class PointLight extends Actor {
       intensity: config.intensity,
       falloff: config.falloff,
     });
-    this._PLcolor = config.color;
+
     this._PLintensity = config.intensity;
     this._PLfalloff = config.falloff;
     this.addComponent(this._Plight);
@@ -24,15 +23,6 @@ export class PointLight extends Actor {
   /*Make Getters and Setters for the properties */
   get light() {
     return this._Plight;
-  }
-
-  set PLcolor(color: Color) {
-    this._Plight.color = color;
-    this._PLcolor = color;
-  }
-
-  get PLcolor() {
-    return this._PLcolor;
   }
 
   set PLintensity(intensity: number) {
@@ -56,22 +46,46 @@ export class PointLight extends Actor {
 
 export class AmbientLight extends Actor {
   private ambient: AmbientLightComponent;
+  private _ALintensity: number;
+
   constructor(config: AmbientLightActorArgs) {
     super(config);
     this.ambient = new AmbientLightComponent({
       color: config.color,
       intensity: config.intensity,
     });
+    this._ALintensity = config.intensity;
     this.addComponent(this.ambient);
+  }
+
+  set ALintensity(intensity: number) {
+    this.ambient.intensity = intensity;
+    this._ALintensity = intensity;
+  }
+
+  get ALintensity() {
+    return this._ALintensity;
   }
 }
 export class Occluder extends Actor {
   private occluder: OccluderComponent;
+  private _imageIndex: number;
+
   constructor(config: OccluderActorArgs) {
     super(config);
     this.occluder = new OccluderComponent({
       imageIndex: config.imageIndex,
     });
     this.addComponent(this.occluder);
+    this._imageIndex = config.imageIndex;
+  }
+
+  get imageIndex() {
+    return this._imageIndex;
+  }
+
+  set imageIndex(index: number) {
+    this.occluder.imageIndex = index;
+    this._imageIndex = index;
   }
 }
