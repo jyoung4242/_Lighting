@@ -7,26 +7,27 @@ uniform vec2 u_resolution;
 
 // Point Light Uniforms
 uniform vec2 uPointLightPositions[100];
-uniform float uPointLightIntensities[100];
-uniform float uPointLightFalloffs[100];
-uniform vec3 uPointLightColors[100];
+uniform float uPointLightIntensities[50];
+uniform float uPointLightFalloffs[50];
+uniform vec3 uPointLightColors[150];
 uniform int uPointLightCount;
 
 // Ambient Light Uniforms
 uniform vec2 uAmbientLightPositions[100];
-uniform vec3 uAmbientLightColors[100];
-uniform float uAmbientLightIntensities[100];
+uniform vec3 uAmbientLightColors[150];
+uniform float uAmbientLightIntensities[50];
 uniform int uAmbientLightCount;
 
 const float EPSILON = 0.001; // Global EPSILON in UV space
 
 // Textures
 uniform sampler2D u_image;  // Default texture slot
-uniform sampler2D uOccluderMasks[100];  // Slot 1 texture
+uniform sampler2D uOccluderMasks[50];  // Slot 1 texture
 
 // Occlusion Shader Uniforms
 uniform vec2 uOccluderPosition[100];
 uniform vec2 uOccluderSize[100];
+uniform float uOccluderAngle[50];
 uniform int uOccluderCount;
 
 // Structure to represent an occluder

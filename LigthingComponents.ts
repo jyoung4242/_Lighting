@@ -15,20 +15,17 @@ export class PointLightComponent extends Component {
     this.color = config.color;
     this.intensity = config.intensity;
     this.falloff = config.falloff;
-    this.position = config.position;
   }
 }
 
 export class AmbientLightComponent extends Component {
   color: Color;
   intensity: number;
-  position: Vector;
 
   constructor(config: AmbientLightComponentConfig) {
     super();
     this.color = config.color;
     this.intensity = config.intensity;
-    this.position = config.position;
   }
 }
 export class OccluderComponent extends Component {
@@ -39,9 +36,7 @@ export class OccluderComponent extends Component {
 
   constructor(config: OccluderComponentConfig) {
     super();
-    this.position = config.position;
-    this.size = config.size;
-    this.angle = config.angle;
+
     this.imageIndex = config.imageIndex;
   }
 }

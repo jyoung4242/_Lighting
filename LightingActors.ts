@@ -1,4 +1,4 @@
-import { Actor, Color, Vector } from "excalibur";
+import { Actor, Color } from "excalibur";
 import { PointLightActorArgs, AmbientLightActorArgs, OccluderActorArgs } from "./LightingTypesAndDefs";
 import { AmbientLightComponent, OccluderComponent, PointLightComponent } from "./LigthingComponents";
 
@@ -7,7 +7,6 @@ export class PointLight extends Actor {
   private _PLcolor: Color;
   private _PLintensity: number;
   private _PLfalloff: number;
-  private _PLposition: Vector;
 
   constructor(config: PointLightActorArgs) {
     super(config);
@@ -15,12 +14,10 @@ export class PointLight extends Actor {
       color: config.color,
       intensity: config.intensity,
       falloff: config.falloff,
-      position: config.position,
     });
     this._PLcolor = config.color;
     this._PLintensity = config.intensity;
     this._PLfalloff = config.falloff;
-    this._PLposition = config.position;
     this.addComponent(this._Plight);
   }
 
@@ -55,15 +52,6 @@ export class PointLight extends Actor {
   get PLfalloff() {
     return this._PLfalloff;
   }
-
-  set PLposition(position: Vector) {
-    this._Plight.position = position;
-    this._PLposition = position;
-  }
-
-  get PLposition() {
-    return this._PLposition;
-  }
 }
 
 export class AmbientLight extends Actor {
@@ -73,7 +61,6 @@ export class AmbientLight extends Actor {
     this.ambient = new AmbientLightComponent({
       color: config.color,
       intensity: config.intensity,
-      position: config.position,
     });
     this.addComponent(this.ambient);
   }
@@ -83,9 +70,6 @@ export class Occluder extends Actor {
   constructor(config: OccluderActorArgs) {
     super(config);
     this.occluder = new OccluderComponent({
-      position: config.position,
-      size: config.size,
-      angle: config.angle,
       imageIndex: config.imageIndex,
     });
     this.addComponent(this.occluder);

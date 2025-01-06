@@ -6,15 +6,15 @@ export class LightingPostProcessor implements ex.PostProcessor {
   private _shader: ex.ScreenShader | undefined;
   gctx: ex.ExcaliburGraphicsContextWebGL;
   texture: WebGLTexture | null = null;
-  textureArray: Sprite[] = [];
-  frameIndex: number = 0;
-  numOccluders: number = 0;
-  numPointLights: number = 0;
-  numAmbients: number = 0;
 
-  occluders: Occluder[] = [];
-  pointLights: PointLight[] = [];
-  ambientLights: AmbientLight[] = [];
+  private _numOccluders: number = 0;
+  private _numPointLights: number = 0;
+  private _numAmbients: number = 0;
+
+  public occluders: Occluder[] = [];
+  public pointLights: PointLight[] = [];
+  public ambientLights: AmbientLight[] = [];
+  public occlusionMasks: Sprite[] = [];
 
   constructor(public graphicsContext: ex.ExcaliburGraphicsContextWebGL) {
     this.gctx = graphicsContext;
@@ -32,6 +32,18 @@ export class LightingPostProcessor implements ex.PostProcessor {
   getShader(): ex.Shader {
     //@ts-expect-error
     return this._shader.getShader();
+  }
+
+  set numPointLights(num: number) {
+    this._numPointLights = num;
+  }
+
+  set numAmbients(num: number) {
+    this._numAmbients = num;
+  }
+
+  set numOccluders(num: number) {
+    this._numOccluders = num;
   }
 
   onUpdate(elapsed: number): void {

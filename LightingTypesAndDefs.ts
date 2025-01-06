@@ -1,4 +1,5 @@
-import { ActorArgs, Color, Vector } from "excalibur";
+import { ActorArgs, Color, World, Camera } from "excalibur";
+import { LightingPostProcessor } from "./LightingPostProcessor";
 
 export type PointLightActorArgs = ActorArgs & PointLightComponentConfig;
 export type AmbientLightActorArgs = ActorArgs & AmbientLightComponentConfig;
@@ -12,17 +13,23 @@ export interface PointLightComponentConfig {
   color: Color;
   intensity: number;
   falloff: number;
-  position: Vector;
 }
 
 export interface AmbientLightComponentConfig {
   color: Color;
   intensity: number;
-  position: Vector;
 }
 export interface OccluderComponentConfig {
-  position: Vector;
-  size: Vector;
-  angle: number;
   imageIndex: number;
+}
+
+/*
+    Lighting System Config
+*/
+
+export interface LightingSystemConfig {
+  lightingBufferSize: number; // # of pixels buffer around the screen to render lights into, even if just off camera
+  postProcessor: LightingPostProcessor;
+  world: World;
+  camera: Camera;
 }
