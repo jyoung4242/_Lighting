@@ -1,4 +1,4 @@
-import { Component, Color, Vector } from "excalibur";
+import { Component, Color } from "excalibur";
 import { PointLightComponentConfig, AmbientLightComponentConfig, OccluderComponentConfig } from "./LightingTypesAndDefs";
 
 /*
@@ -8,7 +8,6 @@ export class PointLightComponent extends Component {
   color: Color;
   intensity: number;
   falloff: number;
-  position: Vector;
 
   constructor(config: PointLightComponentConfig) {
     super();
@@ -29,9 +28,6 @@ export class AmbientLightComponent extends Component {
   }
 }
 export class OccluderComponent extends Component {
-  position: Vector;
-  size: Vector;
-  angle: number;
   imageIndex: number;
 
   constructor(config: OccluderComponentConfig) {

@@ -1,6 +1,6 @@
-import ex, { Sprite } from "excalibur";
+import { Sprite, ScreenShader } from "excalibur";
 import { Occluder, PointLight, AmbientLight } from "./LightingActors";
-import shader from "./LightingShader.glsl";
+import { shader } from "./LightingShader";
 
 export class LightingPostProcessor implements ex.PostProcessor {
   private _shader: ex.ScreenShader | undefined;
@@ -21,7 +21,7 @@ export class LightingPostProcessor implements ex.PostProcessor {
   }
 
   initialize(gl: WebGL2RenderingContext): void {
-    this._shader = new ex.ScreenShader(gl, shader);
+    this._shader = new ScreenShader(gl, shader);
   }
 
   getLayout(): ex.VertexLayout {
@@ -51,11 +51,12 @@ export class LightingPostProcessor implements ex.PostProcessor {
     if (myShader) {
       //Point Light Uniforms
       //create vector array for point light positions
+
       let pointLightPositions: number[] = [];
       let pointLightColors: number[] = [];
       let pointLightIntensities: number[] = [];
       let pointLightFalloffs: number[] = [];
-      for (let i = 0; i < this.numPointLights; i++) {
+      for (let i = 0; i < this._numPointLights; i++) {
         pointLightPositions.push(this.pointLights[i].globalPos.x);
         pointLightPositions.push(this.pointLights[i].globalPos.y);
         pointLightColors.push(this.pointLights[i].color.r);
@@ -64,7 +65,7 @@ export class LightingPostProcessor implements ex.PostProcessor {
         pointLightIntensities.push(this.pointLights[i].PLintensity);
         pointLightFalloffs.push(this.pointLights[i].PLfalloff);
       }
-      myShader.trySetUniformInt("uPointLightCount", this.numPointLights);
+      myShader.trySetUniformInt("uPointLightCount", this._numPointLights);
       myShader.trySetUniformFloatArray("uPointLightPositions", pointLightPositions);
       myShader.trySetUniformFloatArray("uPointLightColors", pointLightColors);
       myShader.trySetUniformFloatArray("uPointLightIntensities", pointLightIntensities);
@@ -73,7 +74,7 @@ export class LightingPostProcessor implements ex.PostProcessor {
       let ambientLightPositions: number[] = [];
       let ambientLightColors: number[] = [];
       let ambientLightIntensities: number[] = [];
-      for (let i = 0; i < this.numAmbients; i++) {
+      for (let i = 0; i < this._numAmbients; i++) {
         ambientLightPositions.push(this.ambientLights[i].globalPos.x);
         ambientLightPositions.push(this.ambientLights[i].globalPos.y);
         ambientLightColors.push(this.ambientLights[i].color.r);
@@ -81,7 +82,7 @@ export class LightingPostProcessor implements ex.PostProcessor {
         ambientLightColors.push(this.ambientLights[i].color.b);
         ambientLightIntensities.push(this.ambientLights[i].ALintensity);
       }
-      myShader.trySetUniformInt("uAmbientLightCount", this.numAmbients);
+      myShader.trySetUniformInt("uAmbientLightCount", this._numAmbients);
       myShader.trySetUniformFloatArray("uAmbientLightPositions", ambientLightPositions);
       myShader.trySetUniformFloatArray("uAmbientLightColors", ambientLightColors);
       myShader.trySetUniformFloatArray("uAmbientLightIntensities", ambientLightIntensities);
@@ -92,7 +93,7 @@ export class LightingPostProcessor implements ex.PostProcessor {
       let occluderAngles: number[] = [];
       let occluderTextureAssignments: number[] = [];
 
-      for (let i = 0; i < this.numOccluders; i++) {
+      for (let i = 0; i < this._numOccluders; i++) {
         occluderPositions.push(this.occluders[i].globalPos.x);
         occluderPositions.push(this.occluders[i].globalPos.y);
         occluderSizes.push(this.occluders[i].width);
@@ -100,7 +101,7 @@ export class LightingPostProcessor implements ex.PostProcessor {
         occluderAngles.push(this.occluders[i].rotation);
         occluderTextureAssignments.push(this.occluders[i].imageIndex);
       }
-      myShader.trySetUniformInt("uOccluderCount", this.numOccluders);
+      myShader.trySetUniformInt("uOccluderCount", this._numOccluders);
       myShader.trySetUniformFloatArray("uOccluderPositions", occluderPositions);
       myShader.trySetUniformFloatArray("uOccluderSizes", occluderSizes);
       myShader.trySetUniformIntArray("uMyOcclusionTextureAssignments", occluderTextureAssignments);

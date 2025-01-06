@@ -1,4 +1,4 @@
-import { System, SystemType, Query, TransformComponent, Actor, Camera, Sprite } from "excalibur";
+import { System, SystemType, Query, TransformComponent, Camera, Sprite } from "excalibur";
 import { PointLightComponent, AmbientLightComponent, OccluderComponent } from "./LigthingComponents";
 import { LightingPostProcessor } from "./LightingPostProcessor";
 import { LightingSystemConfig } from "./LightingTypesAndDefs";
